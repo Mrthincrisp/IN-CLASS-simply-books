@@ -8,19 +8,19 @@ function Authors() {
 
   const { user } = useAuth();
 
-  const getAuthorlist = () => {
+  const getAuthorList = () => {
     getAuthors(user.uid).then(setAuthors);
   };
 
   useEffect(() => {
-    getAuthorlist();
+    getAuthorList();
   });
 
   return (
 
     <div className="d-flex flex-wrap">
       {authors.map((author) => (
-        <AuthorCard key={author.firebaseKey} authorObj={author} />
+        <AuthorCard key={author.firebaseKey} authorObj={author} onUpdate={getAuthorList} />
       ))}
     </div>
   );

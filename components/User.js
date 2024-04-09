@@ -1,11 +1,11 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useAuth } from '../utils/context/authContext';
+import { signOut } from '../utils/auth';
 
 function User() {
   const { user } = useAuth();
-  console.warn(user);
   return (
     <div style={{
       display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh',
@@ -23,6 +23,7 @@ function User() {
             <Card.Title>{user.displayName}</Card.Title>
             <p>{user.email}</p>
             <p>{user.metadata.lastSignInTime}</p>
+            <Button variant="danger" onClick={signOut}>Logout</Button>
           </Card.Body>
         </Card>
       </div>
