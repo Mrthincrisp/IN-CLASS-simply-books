@@ -21,7 +21,7 @@ function AuthorCard({ authorObj, onUpdate }) {
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
       <Card.Body>
-        <Card.Title> {authorObj.first_name} {authorObj.last_name} <Button onClick={toggleFavorite} style={{ borderColor: 'white', backgroundColor: 'white'}}><span>{authorObj.favorite ? '❤️' : '🩶'}</span></Button></Card.Title>
+        <Card.Title> {authorObj.first_name} {authorObj.last_name} <Button onClick={toggleFavorite} style={{ borderColor: 'white', backgroundColor: 'white' }}><span>{authorObj.favorite ? '❤️' : '🩶'}</span></Button></Card.Title>
         <p>{authorObj.email}</p>
         <Link href={`/author/${authorObj.firebaseKey}`} passHref>
           <Button variant="primary" className="m-2">VIEW</Button>
