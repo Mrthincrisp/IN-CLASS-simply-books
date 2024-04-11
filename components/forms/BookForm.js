@@ -17,10 +17,10 @@ const initialState = {
 };
 
 function BookForm({ obj }) {
-  const [formInput, setFormInput] = useState(initialState);
+  const { user } = useAuth();
+  const [formInput, setFormInput] = useState({ ...initialState, uid: user.uid });
   const [authors, setAuthors] = useState([]);
   const router = useRouter();
-  const { user } = useAuth();
 
   useEffect(() => {
     getAuthors(user.uid).then(setAuthors);
@@ -38,10 +38,10 @@ function BookForm({ obj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const payload = { ...formInput, price: +formInput.price };
     if (obj.firebaseKey) {
-      updateBook(formInput).then(() => router.push(`/book/${obj.firebaseKey}`));
+      updateBook(payload).then(() => router.push(`/book/${obj.firebaseKey}`));
     } else {
-      const payload = { ...formInput, uid: user.uid };
       createBook(payload).then(({ name }) => {
         const patchPayload = { firebaseKey: name };
         updateBook(patchPayload).then(() => {
@@ -82,7 +82,7 @@ function BookForm({ obj }) {
       {/* PRICE INPUT  */}
       <FloatingLabel controlId="floatingInput3" label="Book Price" className="mb-3">
         <Form.Control
-          type="text"
+          type="number"
           placeholder="Enter price"
           name="price"
           value={formInput.price}

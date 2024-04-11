@@ -1,7 +1,8 @@
 import { Button, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { deleteSingleAuthor, updateAuthor } from '../api/authorData';
+import { updateAuthor } from '../api/authorData';
+import { deleteAuthorBooks } from '../api/mergedData';
 
 function AuthorCard({ authorObj, onUpdate }) {
   const toggleFavorite = () => {
@@ -12,9 +13,9 @@ function AuthorCard({ authorObj, onUpdate }) {
     }
   };
 
-  const deleteThisBook = () => {
+  const deleteAuthAndBooks = () => {
     if (window.confirm(`WHOA whoa whoa... Your about to delete ${authorObj.last_name}... you realize that right?  Like they'll be gone, and then you gotta add them, and depending on when we're reading this you might not be able to add another one.`)) {
-      deleteSingleAuthor(authorObj.firebaseKey).then(() => onUpdate);
+      deleteAuthorBooks(authorObj.firebaseKey).then(() => onUpdate);
     }
   };
 
@@ -29,7 +30,7 @@ function AuthorCard({ authorObj, onUpdate }) {
         <Link href={`/author/edit/${authorObj.firebaseKey}`} passHref>
           <Button variant="info" className="m-2">EDIT</Button>
         </Link>
-        <Button variant="danger" onClick={deleteThisBook} className="m-2">
+        <Button variant="danger" onClick={deleteAuthAndBooks} className="m-2">
           DELETE
         </Button>
       </Card.Body>
